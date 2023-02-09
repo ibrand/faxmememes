@@ -5,7 +5,7 @@ env:
   RECEIVER_EMAIL: ${{secrets.RECEIVER_EMAIL}}
 on:
   schedule:
-    - cron: '*/5 * 1 * *'
+    - cron: '*/6 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
