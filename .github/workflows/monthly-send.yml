@@ -1,0 +1,12 @@
+name: monthly-send
+env:
+  SENDER_EMAIL: ${{secrets.SENDER_EMAIL}}
+  SENDER_PASSWORD: ${{secrets.SENDER_PASSWORD}}
+  RECEIVER_EMAIL: ${{secrets.RECEIVER_EMAIL}}
+on:
+  schedule:
+    - cron: '2 * * * *'
+jobs:
+   - name: Send memes
+      run: python send_meme.py
+      shell: sh

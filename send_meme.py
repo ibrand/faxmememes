@@ -4,14 +4,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import os.path
-import settings
 
 def send_email(email_recipient,
                email_subject,
                email_message,
                attachment_location = ''):
 
-    email_sender = settings.SENDER_EMAIL
+    email_sender = os.environ['SENDER_EMAIL']
 
     msg = MIMEMultipart()
     msg['From'] = email_sender
@@ -35,7 +34,7 @@ def send_email(email_recipient,
         server = smtplib.SMTP(host="mail.gandi.net", port=587)
         server.ehlo()
         server.starttls()
-        server.login(settings.SENDER_EMAIL, settings.SENDER_PASSWORD)
+        server.login(os.environ['SENDER_EMAIL'], os.environ['SENDER_PASSWORD'])
         text = msg.as_string()
         server.sendmail(email_sender, email_recipient, text)
         print('email sent')
@@ -44,7 +43,7 @@ def send_email(email_recipient,
         print("SMTP server connection error")
     return True
 
-send_email(settings.RECEIVER_EMAIL,
+send_email(os.environ['RECEIVER_EMAIL'],
            'Your weekly meme digest',
            '',
            'memes/tyler.jpeg')
