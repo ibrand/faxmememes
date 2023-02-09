@@ -5,8 +5,11 @@ env:
   RECEIVER_EMAIL: ${{secrets.RECEIVER_EMAIL}}
 on:
   schedule:
-  - cron: '2 * * * *'
+    - cron: '2 * * * *'
 jobs:
-  - name: Send memes
-  run: python send_meme.py
-  shell: sh
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      # Runs a single command using the runners shell
+      - name: Send memes
+        run: python send_meme.py
